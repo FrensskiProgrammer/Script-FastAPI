@@ -53,7 +53,6 @@ async def product_by_category(db: Annotated[Session, Depends(get_db)], category_
         select(Product).where(Product.category_id.in_(categories_and_subcategories), Product.is_active == True,
                               Product.stock > 0)).all()
     return products_category
-
 @router.get("/{product_slug}", status_code=status.HTTP_200_OK)
 def product_detail(product_slug: str, db: Session = Depends(get_db)):
     product = db.query(Product).filter(Product.slug == product_slug).first()
